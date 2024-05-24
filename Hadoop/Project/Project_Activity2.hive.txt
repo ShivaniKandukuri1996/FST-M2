@@ -1,0 +1,8 @@
+--for episode IV
+create table episodeIV(name string, line string)
+row format delimited fields terminated by '\t' TBLPROPERTIES ("skip.header.line.count"="2");
+load data local inpath '/root/inputs/episodeIV_dialogues.txt' into table episodeIV;
+
+insert overwrite local directory '/root/HiveOutput2'
+select count(*) from episodeIV where INSTR(line, 'Luke')>0;
+
